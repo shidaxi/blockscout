@@ -6,6 +6,7 @@
 name: Publish Docker image
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -50,9 +51,7 @@ jobs:
           cache-from: type=registry,ref=blockscout/blockscout:buildcache
           cache-to: type=registry,ref=blockscout/blockscout:buildcache,mode=max
           tags: blockscout/blockscout:latest, blockscout/blockscout:${{ env.RELEASE_VERSION }}
-          platforms: |
-            linux/arm64
-            linux/amd64
+          platforms: linux/arm64,linux/amd64
           build-args: |
             CACHE_EXCHANGE_RATES_PERIOD=
             DISABLE_READ_API=false
