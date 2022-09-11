@@ -40,7 +40,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: blockscout/blockscout
+          images: shidaxi/blockscout
 
       - name: Build & Push Docker image
         uses: docker/build-push-action@v3
@@ -48,9 +48,9 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          cache-from: type=registry,ref=blockscout/blockscout:buildcache
-          cache-to: type=registry,ref=blockscout/blockscout:buildcache,mode=max
-          tags: blockscout/blockscout:latest, blockscout/blockscout:${{ env.RELEASE_VERSION }}
+          cache-from: type=registry,ref=shidaxi/blockscout:buildcache
+          cache-to: type=registry,ref=shidaxi/blockscout:buildcache,mode=max
+          tags: shidaxi/blockscout:latest, shidaxi/blockscout:${{ env.RELEASE_VERSION }}
           platforms: linux/arm64,linux/amd64
           build-args: |
             CACHE_EXCHANGE_RATES_PERIOD=
