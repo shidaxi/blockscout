@@ -7,6 +7,9 @@ name: Publish Docker image
 
 on:
   workflow_dispatch:
+    inputs: 
+      tag: 
+        required: true
   release:
     types: [published]
 
@@ -19,10 +22,12 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     env:
-      RELEASE_VERSION: 4.1.8
+      RELEASE_VERSION: ${{ github.event.inputs.tag }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
